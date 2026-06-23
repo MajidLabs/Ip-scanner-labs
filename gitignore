@@ -1,0 +1,10 @@
+# scan exports generated while testing locally
+scan_results*.txt
+scan_results*.csv
+scan_results*.json
+ip_scanner_*.py
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
