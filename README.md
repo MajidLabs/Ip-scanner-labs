@@ -51,7 +51,7 @@ No pip installs needed. Works on Linux, macOS, and Windows.
 
 ## How the browser scan works
 
-The browser mode uses `fetch()` with `no-cors` against `http://ip:port`. Because browsers can't read raw TCP state, the result is a **heuristic** (tahmini — تخمینی): if the request resolves before the timeout, the host is likely reachable. If it times out, it probably isn't.
+The browser mode uses `fetch()` with `no-cors` against `http://ip:port`. Because browsers can't read raw TCP state, the result is a **heuristic** : if the request resolves before the timeout, the host is likely reachable. If it times out, it probably isn't.
 
 This means **false positives are possible** — a host that answers at the HTTP level but blocks the specific port you're testing may still be reported as alive. For anything more than a rough reachability check, use the Python mode.
 
