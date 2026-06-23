@@ -77,12 +77,12 @@ Only scan networks and hosts you own or have explicit written permission to test
 
 ```
 index.html                                                Markup and UI structure
-style.css                                                    All styling (dark/light themes, responsive layout)
-script.js                                                     Application logic + English/Persian i18n dictionary
-LICENSE                                                    MIT License
-README.md                                             This file
-.gitignore                                                  Excludes local scan exports and OS noise
-mobile-ip-scanner-labs-single-file.html   Mobile version — everything inlined, no dependencies
+style.css                                                 All styling (dark/light themes, responsive layout)
+script.js                                                 Application logic + English/Persian i18n dictionary
+LICENSE                                                   MIT License
+README.md                                                 This file
+.gitignore                                                Excludes local scan exports and OS noise
+mobile-ip-scanner-labs-single-file.html                   Mobile version — everything inlined, no dependencies
 ```
 
 ---
@@ -175,13 +175,13 @@ MIT — see [LICENSE](LICENSE).
 ## ساختار پروژه
 
 ```
-index.html                                                                                             ساختار HTML و رابط کاربری
+index.html                                                                            ساختار HTML و رابط کاربری
 style.css                                                               تمام استایل‌ها (تم تاریک/روشن، طراحی ریسپانسیو)
-script.js                                                                       منطق برنامه + دیکشنری i18n انگلیسی/فارسی
-LICENSE                                                                                                                        مجوز MIT
-README.md                                                                                                                     همین فایل
-.gitignore                                                          حذف خروجی‌های اسکن محلی و فایل‌های سیستم‌عامل
-mobile-ip-scanner-labs-single-file.html             نسخه موبایل — همه چیز در یک فایل، بدون وابستگی   
+script.js                                                                  منطق برنامه + دیکشنری i18n انگلیسی/فارسی
+LICENSE                                                                                             مجوز MIT
+README.md                                                                                            همین فایل
+.gitignore                                                               حذف خروجی‌های اسکن محلی و فایل‌های سیستم‌عامل
+mobile-ip-scanner-labs-single-file.html                                 نسخه موبایل — همه چیز در یک فایل، بدون وابستگی   
 ```
 
 ---
