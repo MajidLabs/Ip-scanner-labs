@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IP Scanner Labs</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div style="max-width:1400px;margin:0 auto;">
+
+  <!-- header -->
+  <div class="header">
+    <div class="header-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="3" fill="currentColor"/>
+        <path d="M12 2V6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M12 18V22" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M2 12H6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M18 12H22" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6" stroke-dasharray="2.5 3.5" opacity="0.65"/>
+      </svg>
+    </div>
+    <div>
+      <h1>IP_SCANNER<span class="sub-brand">_LABS</span></h1>
+      <p data-i18n="headerTagline"></p>
+    </div>
+    <div class="lang-switch" id="lang-switch">
+      <button class="lang-trigger" id="lang-trigger" onclick="toggleLangMenu()" aria-label="Change language">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M3 12H21" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M12 3C14.5 5.7 15.8 8.8 15.8 12C15.8 15.2 14.5 18.3 12 21C9.5 18.3 8.2 15.2 8.2 12C8.2 8.8 9.5 5.7 12 3Z" stroke="currentColor" stroke-width="1.6"/>
+        </svg>
+      </button>
+      <div class="lang-menu" id="lang-menu">
+        <button id="lang-fa" onclick="setLanguage('fa')">فارسی</button>
+        <button id="lang-en" onclick="setLanguage('en')">English</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-layout">
+
+  <!-- full-width notice spanning both columns on desktop -->
+  <div class="usage-notice layout-span">
+    ⚠ <span data-i18n="usageNotice"></span>
+  </div>
+
+  <!-- LEFT (desktop): scan settings -->
+  <div class="col-config">
+
+  <!-- config card -->
+  <div class="card">
+    <div class="card-title" data-i18n="settingsTitle"></div>
+
+    <div class="field-group">
+      <label data-i18n="targetLabel"></label>
+      <input type="text" id="target" data-i18n-placeholder="targetPlaceholder" dir="ltr">
+      <div class="range-info" id="range-info">—</div>
+    </div>
+
+    <div class="field-group">
+      <label data-i18n="timeoutLabel"></label>
+      <input type="number" id="timeout" value="1000" min="100" max="10000" dir="ltr" style="max-width:180px;">
+    </div>
+
+    <div class="field-group">
+      <div class="preset-card">
+        <div class="preset-card-icon">☁</div>
+        <div class="preset-card-body">
+          <div class="preset-card-title" data-i18n="presetCloudflareTitle"></div>
+          <div class="preset-card-desc" data-i18n="presetCloudflareDesc"></div>
+          <div class="preset-card-controls">
+            <select id="preset-sample-size" class="preset-select">
+              <option value="10" data-i18n="presetPerBlock10"></option>
+              <option value="20" selected data-i18n="presetPerBlock20"></option>
+              <option value="40" data-i18n="presetPerBlock40"></option>
+            </select>
+            <button type="button" class="preset-btn" onclick="loadCloudflarePreset()" data-i18n="presetCloudflareBtn"></button>
+          </div>
+          <div class="preset-card-result" id="preset-info"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label data-i18n="methodLabel"></label>
+      <div class="pill-group">
+        <div class="pill active" data-method="tcp" onclick="setMethod('tcp')" data-i18n="methodTCP"></div>
+        <div class="pill" data-method="icmp" onclick="setMethod('icmp')" data-i18n="methodICMP"></div>
+        <div class="pill" data-method="both" onclick="setMethod('both')" data-i18n="methodBoth"></div>
+      </div>
+      <div class="method-note" id="method-note"></div>
+    </div>
+
+    <div id="port-section" class="field-group wide">
+      <label data-i18n="portsLabel"></label>
+      <input type="text" id="custom-ports" data-i18n-placeholder="portsPlaceholder" dir="ltr">
+      <div class="port-tags" id="port-tags">
+        <span class="tag sel" data-port="80"   onclick="togglePort(this)">80 HTTP</span>
+        <span class="tag sel" data-port="443"  onclick="togglePort(this)">443 HTTPS</span>
+        <span class="tag sel" data-port="22"   onclick="togglePort(this)">22 SSH</span>
+        <span class="tag sel" data-port="8080" onclick="togglePort(this)">8080</span>
+        <span class="tag sel" data-port="8443" onclick="togglePort(this)">8443</span>
+        <span class="tag" data-port="21"   onclick="togglePort(this)">21 FTP</span>
+        <span class="tag" data-port="3306" onclick="togglePort(this)">3306 MySQL</span>
+        <span class="tag" data-port="5432" onclick="togglePort(this)">5432 Postgres</span>
+        <span class="tag" data-port="3389" onclick="togglePort(this)">3389 RDP</span>
+        <span class="tag" data-port="6443" onclick="togglePort(this)">6443 K8s</span>
+      </div>
+    </div>
+
+    <div class="grid-2 field-group wide">
+      <div>
+        <label data-i18n="concurrencyLabel"></label>
+        <input type="number" id="concurrency" value="50" min="1" max="200" dir="ltr">
+      </div>
+      <div>
+        <label data-i18n="modeLabel"></label>
+        <select id="mode">
+          <option value="browser" data-i18n="modeBrowser"></option>
+          <option value="python" data-i18n="modePython"></option>
+        </select>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-scan" id="scan-btn" onclick="startScan()"></button>
+      <button class="btn-stop" id="stop-btn" onclick="stopScan()" style="display:none;"></button>
+    </div>
+  </div>
+
+  </div>
+  <!-- END col-config -->
+
+  <!-- RIGHT (desktop): live status, log, results -->
+  <div class="col-results">
+
+  <!-- welcome/guide card — shown before first scan, hidden when scan starts -->
+  <div class="card" id="welcome-card">
+    <div class="card-title" data-i18n="welcomeTitle"></div>
+    <div class="welcome-steps">
+      <div class="welcome-step">
+        <div class="welcome-step-num">01</div>
+        <div class="welcome-step-text" data-i18n="welcomeStep1"></div>
+      </div>
+      <div class="welcome-step">
+        <div class="welcome-step-num">02</div>
+        <div class="welcome-step-text" data-i18n="welcomeStep2"></div>
+      </div>
+      <div class="welcome-step">
+        <div class="welcome-step-num">03</div>
+        <div class="welcome-step-text" data-i18n="welcomeStep3"></div>
+      </div>
+      <div class="welcome-step">
+        <div class="welcome-step-num">04</div>
+        <div class="welcome-step-text" data-i18n="welcomeStep4"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- progress card -->
+  <div class="card" id="progress-card" style="display:none;">
+    <div class="card-title" data-i18n="progressTitle"></div>
+    <div class="progress-text" id="progress-text"></div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progress-fill"></div>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-val c-blue" id="s-total">0</div>
+        <div class="stat-label" data-i18n="statTotal"></div>
+      </div>
+      <div class="stat">
+        <div class="stat-val c-green" id="s-alive">0</div>
+        <div class="stat-label" data-i18n="statAlive"></div>
+      </div>
+      <div class="stat">
+        <div class="stat-val c-red" id="s-dead">0</div>
+        <div class="stat-label" data-i18n="statDead"></div>
+      </div>
+      <div class="stat">
+        <div class="stat-val c-warn" id="s-time">0s</div>
+        <div class="stat-label" data-i18n="statTime"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- terminal log -->
+  <div class="card" id="log-card" style="display:none;">
+    <div class="flex-between" style="margin-bottom:12px;">
+      <div class="card-title" style="margin-bottom:0;" data-i18n="logTitle"></div>
+      <button class="btn-export" onclick="clearLog()" data-i18n="btnClear"></button>
+    </div>
+    <div class="terminal" id="terminal">
+      <div class="log-line"><span class="log-info" data-i18n="logWaiting"></span><span class="cursor">█</span></div>
+    </div>
+  </div>
+
+  <!-- results -->
+  <div class="card" id="results-card" style="display:none;">
+    <div class="card-title" style="margin-bottom:10px;" data-i18n="resultsTitle"></div>
+
+    <div class="toolbar-wrap">
+      <div class="toolbar-label" data-i18n="exportLabel"></div>
+      <div class="toolbar-row">
+        <div class="chip" onclick="exportTXT()" data-i18n="exportTXT"></div>
+        <div class="chip" onclick="exportCSV()" data-i18n="exportCSV"></div>
+        <div class="chip" onclick="exportJSON()" data-i18n="exportJSON"></div>
+        <div class="chip" id="export-clipboard-btn" onclick="exportClipboard()" data-i18n="exportClipboard"></div>
+      </div>
+    </div>
+
+    <div class="toolbar-wrap">
+      <div class="toolbar-label" data-i18n="filterLabel"></div>
+      <div class="toolbar-row">
+        <div class="chip active" id="f-alive" onclick="setFilter('alive')" data-i18n="filterAlive"></div>
+        <div class="chip" id="f-dead" onclick="setFilter('dead')" data-i18n="filterDead"></div>
+        <div class="chip" id="f-all" onclick="setFilter('all')" data-i18n="filterAll"></div>
+      </div>
+    </div>
+
+    <div class="toolbar-wrap">
+      <div class="toolbar-label" data-i18n="sortLabel"></div>
+      <div class="toolbar-row">
+        <div class="chip toggle-on" id="s-fastest" onclick="toggleSortFastest()" data-i18n="sortFastest"></div>
+        <div class="chip toggle-on" id="t-autoscroll" onclick="toggleAutoScroll()" data-i18n="autoScroll"></div>
+      </div>
+      <div class="toolbar-row">
+        <div class="chip" id="t-detail" onclick="toggleDetail()" data-i18n="showDetail"></div>
+        <div class="chip" id="t-commas" onclick="toggleCommas()" data-i18n="sepNewline"></div>
+      </div>
+    </div>
+
+    <div class="range-info" style="margin-bottom:10px;" data-i18n="copyHint"></div>
+
+    <div class="results-wrap">
+      <table id="results-table">
+        <thead>
+          <tr>
+            <th class="row-num" data-i18n="thNum"></th>
+            <th data-i18n="thIP"></th>
+            <th class="detail-col" id="th-port" data-i18n="thPort"></th>
+            <th class="detail-col" id="th-method" data-i18n="thMethod"></th>
+            <th id="th-latency" data-i18n="thLatency"></th>
+            <th data-i18n="thStatus"></th>
+          </tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+      </table>
+      <div class="empty-state" id="no-results" style="display:none;">
+        <div class="icon">◈</div>
+        <div data-i18n="noResults"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- python code card -->
+  <div class="card" id="python-card" style="display:none;">
+    <div class="card-title" data-i18n="pythonTitle"></div>
+    <div class="terminal" id="python-code" style="max-height:500px; white-space:pre; overflow-x:auto;"></div>
+    <div style="margin-top:12px; display:flex; gap:8px;">
+      <button class="btn-export" onclick="copyPython()" data-i18n="btnCopyCode"></button>
+      <button class="btn-export" onclick="downloadPython()" data-i18n="btnDownloadPy"></button>
+    </div>
+  </div>
+
+  </div>
+  <!-- END col-results -->
+
+  </div>
+  <!-- END main-layout -->
+
+  <!-- footer -->
+  <div class="footer">
+    © <span id="footer-year"></span> MajidLabs — <span data-i18n="footerRights"></span>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
