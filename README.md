@@ -6,7 +6,16 @@ Built for network administrators and developers who need a quick reachability ch
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 ![Language: HTML/JS](https://img.shields.io/badge/Stack-HTML%20%2F%20JS%20%2F%20CSS-blue.svg)
+**[Live demo →](https://majidlabs.github.io/Ip-scanner-labs/)**
 
+![Scan demo](docs/demo.gif)
+
+<table>
+<tr>
+<td><img src="docs/screenshot-welcome.png" alt="Welcome screen" width="420"></td>
+<td><img src="docs/screenshot-results.png" alt="Scan results" width="420"></td>
+</tr>
+</table>
 ---
 
 ## What it does
